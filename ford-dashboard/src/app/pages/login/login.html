@@ -1,0 +1,35 @@
+<div class="container mt-5">
+
+  <div class="card p-4 mx-auto" style="max-width: 400px">
+
+    <h2 class="text-center mb-4">
+      Login Ford
+    </h2>
+
+    <div class="mb-3">
+      <label class="form-label">Usuário</label>
+
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="nome">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Senha</label>
+
+      <input
+        type="password"
+        class="form-control"
+        [(ngModel)]="senha">
+    </div>
+
+    <button
+      class="btn btn-primary w-100"
+      (click)="entrar()">
+      Entrar
+    </button>
+
+  </div>
+
+</div>
