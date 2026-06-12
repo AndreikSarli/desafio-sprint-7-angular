@@ -1,0 +1,128 @@
+
+.home-container {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: url('/ranger.png') no-repeat center top 80%;
+  background-size: 85%;
+  background-color: #ffffff;
+}
+
+
+.menu-toggle-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+  background: transparent;
+  border: none;
+  color: #385723; 
+  font-size: 28px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: opacity 0.1s ease-in-out 0.3s;
+}
+
+
+.sidebar.active ~ .menu-toggle-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0s ease-in-out 0s;
+  
+}
+
+
+.sidebar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(35, 63, 39, 0.45); 
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: -250px; 
+  width: 250px;
+  height: 100%;
+  background-color: #f8f9fa; 
+  border-right: 1px solid #dee2e6;
+  padding: 60px 15px 20px 15px;
+  display: flex;
+  flex-direction: column;
+  transition: left 0.3s ease-in-out;
+  z-index: 999; 
+}
+
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar-logo {
+  max-width: 100px;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+.nav-link {
+  color: #6c757d;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+
+.nav-link.active {
+  background-color: #e2f0d9;
+  color: #385723;
+}
+
+.nav-link:hover:not(.active) {
+  background-color: #eeeeee;
+  color: #333333;
+}
+
+.logout-btn {
+  margin-top: auto;
+  color: #dc3545;
+  text-decoration: none;
+}
+
+
+.content-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.style-card {
+  width: 100%;
+  height: 30%;
+  max-width: 450px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(5px);
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  align-items: center;
+}
