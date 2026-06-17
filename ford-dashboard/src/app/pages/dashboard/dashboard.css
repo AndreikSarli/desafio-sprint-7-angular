@@ -1,0 +1,318 @@
+/* Container Geral - Ocupa a tela inteira de forma estática */
+.dashboard-container {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* --- MENU LATERAL / SIDEBAR --- */
+.menu-toggle-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+  background: transparent;
+  border: none;
+  color: #004488;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: opacity 0.1s ease-in-out 0.3s;
+}
+
+.sidebar.active ~ .menu-toggle-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0s ease-in-out 0s;
+}
+
+.sidebar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 14, 52, 0.45);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -290px;
+  width: 290px;
+  height: 100%;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  padding: 60px 15px 20px 15px;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar.animar {
+  transition: left 0.3s ease-in-out !important;
+}
+
+.sidebar:not(.animar) {
+  transition: none !important;
+}
+
+.sidebar-logo {
+  max-width: 100px;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+/* Customização dos Links: Ajustados de Verde Claro para o Azulado Sutil */
+.nav-link {
+  color: #555555 !important;
+  font-weight: 700 !important;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-bottom: 5px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.nav-link.active {
+  background-color: #e6f0fa !important;
+  color: #004488 !important;
+}
+
+.nav-link:hover:not(.active) {
+  background-color: #f0f4f8 !important;
+  color: #003366 !important;
+}
+
+/* --- ÁREA DE CONTEÚDO DO DASHBOARD --- */
+.content-area {
+  width: 100%;
+  height: 100%;
+  padding: 75px 25px 20px 25px;
+  box-sizing: border-box;
+}
+
+.content-area .row {
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* ==========================================================================
+   👤 DROPDOWN DO USUÁRIO (IGUAL AO DA HOME)
+   ========================================================================== */
+.user-dropdown-container {
+  position: fixed !important; /* Mantém fixo para não sumir atrás do Bootstrap */
+  top: 15px !important;
+  right: 25px !important;
+  z-index: 10000 !important;
+}
+
+.user-btn {
+  background: transparent !important; /* 👈 Remove o fundo azul sólido */
+  border: none !important;
+  color: #004488 !important; /* 👈 O ícone do bonequinho fica azul direto */
+  cursor: pointer;
+  padding: 5px !important; /* 👈 Ajusta o espaçamento igual ao da Home */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important; /* 👈 Remove o tamanho fixo de bolinha */
+  height: auto !important; /* 👈 Remove o tamanho fixo de bolinha */
+  box-shadow: none !important; /* 👈 Remove a sombra para ficar idêntico */
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.user-btn:hover {
+  color: #002d5e !important; /* Efeito de hover original */
+  transform: scale(1.08);
+  background: transparent !important;
+}
+
+/* Garante que o SVG interno puxe o tamanho correto */
+.user-btn svg {
+  width: 26px !important;
+  height: 26px !important;
+  display: block !important;
+}
+
+/* --- O restante do menu (dropdown-menu-ford, etc.) pode continuar igual --- */
+.dropdown-menu-ford {
+  position: absolute !important;
+  top: 45px !important; /* Ajustado para colar certinho no ícone transparente */
+  right: 0 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #dee2e6 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  width: 160px !important;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dropdown-menu-ford.show {
+  display: flex !important;
+}
+
+.dropdown-header-user {
+  background-color: #f8f9fa !important;
+  font-size: 0.75rem !important;
+  color: #6c757d !important;
+  font-weight: 700 !important;
+  padding: 8px 12px !important;
+  text-align: center;
+  border-bottom: 1px solid #eee !important;
+}
+
+.dropdown-item-logout {
+  background: transparent !important;
+  border: none !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 10px 15px !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color: #dc3545 !important;
+  cursor: pointer;
+}
+
+.dropdown-item-logout:hover {
+  background-color: #fff5f5 !important;
+}
+
+/* ==========================================================================
+   🚗 SELECT DE VEÍCULOS NEGRITO PADRÃO FORD
+   ========================================================================== */
+.select-ford-negrito {
+  font-weight: 700 !important;
+  color: #004488 !important;
+  border: 1px solid #cccccc !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+}
+
+.select-ford-negrito option {
+  font-weight: 700 !important;
+  padding: 8px !important;
+  background-color: #ffffff !important;
+  color: #004488 !important;
+}
+
+.select-ford-negrito:focus {
+  border-color: #004488 !important;
+  box-shadow: 0 0 0 0.25rem rgba(0, 68, 136, 0.25) !important;
+  outline: none !important;
+}
+
+/* ==========================================================================
+   🔵 ⚪ 🔵 TABELA FORD DESIGN: TOPO AZUL / MEIO BRANCO / BAIXO AZUL
+   ========================================================================== */
+.tabela-ford-sanduiche {
+  border-collapse: collapse !important;
+  border: 1px solid #dee2e6 !important;
+  background-color: #ffffff !important;
+  table-layout: fixed !important;
+}
+
+.tabela-ford-sanduiche thead tr {
+  background-color: #004488 !important;
+}
+
+.tabela-ford-sanduiche thead th {
+  background-color: #004488 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  padding: 12px 10px !important;
+  border: 1px solid #003366 !important;
+}
+
+.tabela-ford-sanduiche tbody td {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  padding: 12px 10px !important;
+  border: 1px solid #dee2e6 !important;
+  vertical-align: middle !important;
+}
+
+.tabela-ford-sanduiche tbody tr td {
+  color: #000000 !important;
+}
+
+.tabela-ford-sanduiche tbody td .status-on {
+  color: #198754 !important;
+  font-weight: 700 !important;
+}
+
+.tabela-ford-sanduiche tbody td .status-off {
+  color: #dc3545 !important;
+  font-weight: 700 !important;
+}
+
+.tabela-rodape-azul {
+  background-color: #004488 !important;
+  height: 15px !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.tabela-ford-sanduiche th:nth-child(1),
+.tabela-ford-sanduiche td:nth-child(1) {
+  width: 240px !important;
+}
+
+.tabela-ford-sanduiche th:not(:nth-child(1)),
+.tabela-ford-sanduiche td:not(:nth-child(1)) {
+  width: auto !important;
+}
+
+.monospace-vin {
+  font-family: monospace !important;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Estilo para o input de busca VIN dentro da tabela */
+.tabela-ford-sanduiche tbody td input.form-control {
+  background-color: #f8f9fa !important;
+  border: 1px solid #004488 !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-family: monospace !important;
+  letter-spacing: 0.5px !important;
+  padding: 8px 10px !important;
+  text-transform: uppercase;
+}
+
+.tabela-ford-sanduiche tbody td input.form-control:focus {
+  background-color: #ffffff !important;
+  border-color: #0d6efd !important;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+  outline: none !important;
+}
+
+.no-transition {
+  transition: none !important;
+  left: 0 !important;
+}

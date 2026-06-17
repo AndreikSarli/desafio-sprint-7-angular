@@ -1,1 +1,175 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <div
+    class="sidebar-overlay"
+    [class.active]="menuService.menuAberto"
+    (click)="menuService.toggleMenu()"
+  ></div>
+
+  <div class="sidebar" [class.active]="menuService.menuAberto" [class.animar]="menuService.clicado">
+    <div class="logo-container">
+      <img src="/ford.png" alt="Ford Logo" class="sidebar-logo" />
+    </div>
+    <nav class="nav flex-column mt-3">
+      <a class="nav-link" routerLink="/home">Home</a>
+      <a class="nav-link active" routerLink="/dashboard">Dashboard</a>
+    </nav>
+  </div>
+
+  <button class="menu-toggle-btn" (click)="menuService.toggleMenu()">
+    <span class="hamburger-icon">&#9776;</span>
+  </button>
+
+  <div class="user-dropdown-container">
+    <button class="user-btn" (click)="toggleDropdown($event)">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="26"
+        height="26"
+        fill="currentColor"
+        class="bi bi-person-circle"
+        viewBox="0 0 16 16"
+      >
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+        <path
+          fill-rule="evenodd"
+          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+        />
+      </svg>
+    </button>
+
+    <div class="dropdown-menu-ford" [class.show]="mostrarDropdown">
+      <div class="dropdown-header-user">Admin</div>
+      <button class="dropdown-item-logout" (click)="logout()">🚪 Sair do Sistema</button>
+    </div>
+  </div>
+
+  <div class="content-area px-4 w-100" style="height: calc(100vh - 20px)">
+    <div class="w-100 h-100 d-flex flex-column justify-content-between px-0">
+      <div>
+        <h2 class="text-center fw-bold mb-4" style="color: #0d6efd">Dashboard FORD</h2>
+
+        <div class="row g-3 justify-content-center mb-4 w-100 m-0">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="card shadow-sm h-100 bg-white" style="border: 1px solid #cccccc">
+              <div class="card-header bg-light text-muted fw-bold py-2 small text-start">
+                Veículo
+              </div>
+              <div class="card-body d-flex align-items-center py-2">
+                <select
+                  class="form-select form-select-sm select-ford-negrito"
+                  [(ngModel)]="veiculoSelecionado"
+                  (change)="onChangeVeiculo()"
+                >
+                  <option value="mustang">Mustang</option>
+                  <option value="ranger">Ranger</option>
+                  <option value="territory">Territory</option>
+                  <option value="bronco">Bronco Sport</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="card shadow-sm h-100 bg-white" style="border: 1px solid #cccccc">
+              <div class="card-header bg-light text-muted fw-bold py-2 small text-start">
+                Total de Vendas
+              </div>
+              <div class="card-body py-2 text-start">
+                <h3 class="fw-bold mb-0" style="color: #0d6efd">{{ dadosVeiculo.vendas }}</h3>
+                <small class="text-muted">Unid.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="card shadow-sm h-100 bg-white" style="border: 1px solid #cccccc">
+              <div class="card-header bg-light text-muted fw-bold py-2 small text-start">
+                Conectados
+              </div>
+              <div class="card-body py-2 text-start">
+                <h3 class="fw-bold mb-0" style="color: #0d6efd">{{ dadosVeiculo.conectados }}</h3>
+                <small class="text-muted">Unid.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="card shadow-sm h-100 bg-white" style="border: 1px solid #cccccc">
+              <div class="card-header bg-light text-muted fw-bold py-2 small text-start">
+                Update Software
+              </div>
+              <div class="card-body py-2 text-start">
+                <h3 class="fw-bold mb-0" style="color: #0d6efd">
+                  {{ dadosVeiculo.updateSoftware }}
+                </h3>
+                <small class="text-muted">Unid.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="text-center d-flex align-items-center justify-content-center flex-grow-1 my-3"
+        style="min-height: 250px"
+      >
+        <img
+          [src]="dadosVeiculo.imagem"
+          [alt]="veiculoSelecionado"
+          class="img-fluid"
+          style="width: 100%; max-width: 750px; height: auto; max-height: 48vh; object-fit: contain"
+        />
+      </div>
+
+      <div class="table-responsive mb-3 w-100 table-container-ford shadow-sm rounded">
+        <table class="table text-center mb-0 small w-100 tabela-ford-sanduiche">
+          <thead>
+            <tr>
+              <th>Código - Vin</th>
+              <th>Odômetro</th>
+              <th>Nível de Combustível</th>
+              <th>Status</th>
+              <th>Lat.</th>
+              <th>Long.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="exibirLinhaTabela && dadosVeiculo?.vin">
+              <td class="text-start px-3">
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  [formControl]="buscaVinCtrl"
+                  placeholder="Digite o VIN..."
+                />
+              </td>
+              <td class="fw-bold">{{ dadosVeiculo.odometro }} Km</td>
+              <td class="fw-bold">{{ dadosVeiculo.combustivel }}</td>
+              <td>
+                <span
+                  [class.status-on]="dadosVeiculo.status === 'on'"
+                  [class.status-off]="dadosVeiculo.status === 'off'"
+                  class="fw-bold text-uppercase"
+                >
+                  {{ dadosVeiculo.status }}
+                </span>
+              </td>
+              <td class="fw-bold">{{ dadosVeiculo.lat }}</td>
+              <td class="fw-bold">{{ dadosVeiculo.long }}</td>
+            </tr>
+            <tr *ngIf="!exibirLinhaTabela || !dadosVeiculo?.vin">
+              <td colspan="6" class="py-3 fw-bold text-muted bg-white">
+                ⚠️ Nenhum veículo correspondente encontrado para este código VIN.
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6" class="tabela-rodape-azul"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

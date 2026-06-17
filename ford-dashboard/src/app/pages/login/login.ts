@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from '../../services/auth';
 
@@ -8,12 +8,38 @@ import { Auth } from '../../services/auth';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
   nome = '';
   senha = '';
   erroMensagem = '';
+  lembrarLogin = false;
 
-  constructor(private authService: Auth, private router: Router) {}
+  constructor(
+    private authService: Auth,
+    private router: Router,
+  ) {}
+
+  ngOnInit() {
+    // Verifica se há credenciais salvas e faz auto-login
+    this.verificarAutoLogin();
+  }
+
+  verificarAutoLogin() {
+    const credenciaisArmazenadas = localStorage.getItem('ford-login-auto');
+    if (credenciaisArmazenadas) {
+      try {
+        const { nome, senha } = JSON.parse(credenciaisArmazenadas);
+        this.nome = nome;
+        this.senha = senha;
+        this.lembrarLogin = true;
+        // Faz login automático
+        this.entrar();
+      } catch (e) {
+        console.error('Erro ao recuperar credenciais:', e);
+        localStorage.removeItem('ford-login-auto');
+      }
+    }
+  }
 
   entrar() {
     if (!this.nome || !this.senha) {
@@ -24,15 +50,24 @@ export class Login {
     this.authService.realizarLogin({ nome: this.nome, senha: this.senha }).subscribe({
       next: (usuarioValido) => {
         this.erroMensagem = '';
+
+        // Se o checkbox está marcado, salva as credenciais no localStorage
+        if (this.lembrarLogin) {
+          localStorage.setItem(
+            'ford-login-auto',
+            JSON.stringify({ nome: this.nome, senha: this.senha }),
+          );
+        } else {
+          // Se o checkbox não está marcado, remove as credenciais salvas
+          localStorage.removeItem('ford-login-auto');
+        }
+
         this.router.navigate(['/home']);
       },
       error: (err) => {
-        if (err.status === 401 || err.status === 400) {
-          this.erroMensagem = err.error.message || 'Usuário ou senha incorretos.';
-        } else {
-          this.erroMensagem = 'Não foi possível conectar à API. Certifique-se de que ela está rodando na porta 3001.';
-        }
-      }
+        console.log('Erro recebido:', err);
+        this.erroMensagem = err.error?.message || 'Erro ao fazer login';
+      },
     });
   }
 }
