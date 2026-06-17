@@ -58,7 +58,7 @@
             {{ erroMensagem }}
           </div>
 
-          <button class="btn btn-login-submit w-100" (click)="entrar()">Entrar</button>
+          <button class="btn btn-login-submit w-100" [disabled]="!formularioValido()" (click)="entrar()">Entrar</button>
         </div>
       </div>
     </div>

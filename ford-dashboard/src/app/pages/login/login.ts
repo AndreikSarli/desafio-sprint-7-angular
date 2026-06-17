@@ -41,8 +41,15 @@ export class Login implements OnInit {
     }
   }
 
+  /* 🔐 NOVA FUNÇÃO DE VALIDAÇÃO: 
+     Retorna 'true' apenas se ambos os campos tiverem texto digitado (removendo espaços em branco) */
+  formularioValido(): boolean {
+    return !!this.nome?.trim() && !!this.senha?.trim();
+  }
+
   entrar() {
-    if (!this.nome || !this.senha) {
+    // Mantemos essa validação por segurança extra no método
+    if (!this.formularioValido()) {
       this.erroMensagem = 'Por favor, preencha todos os campos.';
       return;
     }
