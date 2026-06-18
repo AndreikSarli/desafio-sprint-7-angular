@@ -1,16 +1,13 @@
 <div class="login-wrapper">
   <div class="container-fluid h-100 p-0">
     <div class="row g-0 h-100 align-items-center">
-      <div
-        class="col-md-6 d-none d-md-flex justify-content-center align-items-center h-100 login-left-split"
-      >
+      <div class="col-md-6 d-none d-md-flex justify-content-center align-items-center h-100 login-left-split">
         <img src="/ranger.png" alt="Ford Ranger" class="ranger-highlight-img" />
       </div>
 
-      <div
-        class="col-md-6 d-flex justify-content-center align-items-center h-100 login-right-split"
-      >
-        <div class="login-content-box">
+      <div class="col-md-6 d-flex justify-content-center align-items-center h-100 login-right-split">
+        <form class="login-content-box" (ngSubmit)="entrar()">
+          
           <div class="mb-3 text-center">
             <img src="/ford.png" alt="Ford Logo" class="login-logo" />
           </div>
@@ -22,6 +19,7 @@
               <span class="input-icon-label">👤</span>
               <input
                 type="text"
+                name="username"
                 class="form-control login-custom-input"
                 placeholder="Insira seu e-mail"
                 [(ngModel)]="nome"
@@ -34,6 +32,7 @@
               <span class="input-icon-label">🔒</span>
               <input
                 type="password"
+                name="password"
                 class="form-control login-custom-input"
                 placeholder="Insira sua senha"
                 [(ngModel)]="senha"
@@ -46,6 +45,7 @@
               <input
                 class="form-check-input custom-switch-input"
                 type="checkbox"
+                name="lembrarLogin"
                 role="switch"
                 style="margin-right: 10px"
                 [(ngModel)]="lembrarLogin"
@@ -58,9 +58,14 @@
             {{ erroMensagem }}
           </div>
 
-          <button class="btn btn-login-submit w-100" [disabled]="!formularioValido()" (click)="entrar()">Entrar</button>
-        </div>
+          <button 
+            type="submit" 
+            class="btn btn-login-submit w-100" 
+            [disabled]="!formularioValido()"
+          >
+            Entrar
+          </button>
+        </form>
+
       </div>
     </div>
-  </div>
-</div>

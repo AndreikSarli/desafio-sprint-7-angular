@@ -134,8 +134,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngIf="exibirLinhaTabela && dadosVeiculo?.vin">
-              <td class="text-start px-3">
+            <tr>
+              <td class="text-start px-3" style="min-width: 200px; vertical-align: middle">
                 <input
                   type="text"
                   class="form-control form-control-sm"
@@ -143,24 +143,36 @@
                   placeholder="Digite o VIN..."
                 />
               </td>
-              <td class="fw-bold">{{ dadosVeiculo.odometro }} Km</td>
-              <td class="fw-bold">{{ dadosVeiculo.combustivel }}</td>
-              <td>
-                <span
-                  [class.status-on]="dadosVeiculo.status === 'on'"
-                  [class.status-off]="dadosVeiculo.status === 'off'"
-                  class="fw-bold text-uppercase"
+
+              <ng-container *ngIf="exibirLinhaTabela && dadosVeiculo?.vin">
+                <td class="fw-bold" style="vertical-align: middle">
+                  {{ dadosVeiculo.odometro }} Km
+                </td>
+                <td class="fw-bold" style="vertical-align: middle">
+                  {{ dadosVeiculo.combustivel }}
+                </td>
+                <td style="vertical-align: middle">
+                  <span
+                    [class.status-on]="dadosVeiculo.status === 'on'"
+                    [class.status-off]="dadosVeiculo.status === 'off'"
+                    class="fw-bold text-uppercase"
+                  >
+                    {{ dadosVeiculo.status }}
+                  </span>
+                </td>
+                <td class="fw-bold" style="vertical-align: middle">{{ dadosVeiculo.lat }}</td>
+                <td class="fw-bold" style="vertical-align: middle">{{ dadosVeiculo.long }}</td>
+              </ng-container>
+
+              <ng-container *ngIf="!exibirLinhaTabela || !dadosVeiculo?.vin">
+                <td
+                  colspan="5"
+                  class="fw-bold text-danger bg-white small text-center"
+                  style="vertical-align: middle; padding: 12px 0"
                 >
-                  {{ dadosVeiculo.status }}
-                </span>
-              </td>
-              <td class="fw-bold">{{ dadosVeiculo.lat }}</td>
-              <td class="fw-bold">{{ dadosVeiculo.long }}</td>
-            </tr>
-            <tr *ngIf="!exibirLinhaTabela || !dadosVeiculo?.vin">
-              <td colspan="6" class="py-3 fw-bold text-muted bg-white">
-                ⚠️ Nenhum veículo correspondente encontrado para este código VIN.
-              </td>
+                  ⚠️ Nenhum veículo correspondente para este VIN.
+                </td>
+              </ng-container>
             </tr>
           </tbody>
           <tfoot>

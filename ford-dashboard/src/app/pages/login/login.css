@@ -20,7 +20,6 @@
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #ffffff;
-  
 }
 
 .login-left-split {
@@ -32,7 +31,31 @@
   background: transparent !important;
   position: relative !important;
   z-index: 2 !important; /* Faz o lado direito ficar "por cima" do esquerdo */
-  box-shadow: -8px 0 15px -5px rgba(0, 0, 0, 0.15) !important;
+  background: linear-gradient(135deg, #5b658f33 0%, #f8fafc11 50%, #d3d3e049 100%) !important;
+}
+
+/* 🛠️ PASSO 2: Criamos a sombra em formato de vetor físico travado */
+.login-right-split::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0; /* Fixa exatamente na linha divisória do meio */
+  height: 100%;
+
+  /* 📐 TRAVA A LARGURA: A sombra terá sempre 15px de largura, não importa o zoom */
+  width: 15px;
+
+  /* Cria um degradê perfeito que imita uma sombra suave indo da esquerda para a direita */
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.03) 10%,
+    rgba(0, 0, 0, 0) 60%
+  );
+
+  /* Garante que ela fique atrás dos inputs, mas colada em cima do split branco */
+  z-index: -1;
+  pointer-events: none; /* Evita que ela interfira nos cliques da tela */
 }
 
 /* 🚗 Ranger ampliada para destaque */
@@ -47,29 +70,29 @@
 .login-content-box {
   width: 95%; /* Mantém os seus 75% para esticar bem nas laterais */
   max-width: 820px; /* Mantém o seu limite original bem largo */
-  
+
   /* 🛠️ MUDANÇA ESSENCIAL AQUI: */
   height: auto; /* Remove o '90vh' fixo para a caixa encolher organicamente em telas menores */
   max-height: 95vh; /* Impede que ela passe do tamanho total da tela */
-  
+
   padding: 1.5rem 1rem;
   margin: 0 auto !important; /* Centraliza o bloco esticado no meio da área cinza */
   padding-bottom: 15vh;
-  
+
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
 }
 
 /* 🟦 Logo da Ford responsiva e segura */
 .login-logo {
   width: 100%;
-  max-width: 230px; 
+  max-width: 230px;
   height: auto;
   object-fit: contain;
-  
+
   /* 🛠️ ALTERAÇÃO DE MARGEM: Mudamos de 'vh' para 'rem' para dar uma distância fixa e estável */
-margin: 0 auto clamp(1.5rem, 6vh, 5rem) auto !important;
+  margin: 0 auto clamp(1.5rem, 6vh, 5rem) auto !important;
 }
 
 /* 📝 Título "Boas-vindas" */
@@ -107,6 +130,7 @@ margin: 0 auto clamp(1.5rem, 6vh, 5rem) auto !important;
   font-size: 0.95rem;
   color: #333333 !important;
   width: 100%;
+  font-weight: 600 !important;
 }
 
 /* 💙 Efeito neon ativado puramente no clique do input */

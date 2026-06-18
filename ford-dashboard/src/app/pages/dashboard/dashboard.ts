@@ -65,57 +65,64 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Inicializa a tela com o Mustang padrão
-    this.carregarDadosPorModelo(this.veiculoSelecionado);
+  // 1. Inicializa a tela com o Mustang padrão (isso preenche o objeto dadosVeiculo)
+  this.carregarDadosPorModelo(this.veiculoSelecionado);
 
-    // 🎯 PROGRAMAÇÃO REATIVA COM RxJS: Busca Global por VIN Inteligente!
-    this.buscaVinCtrl.valueChanges
-      .pipe(
-        debounceTime(500), // Aguarda o usuário terminar de digitar
-        distinctUntilChanged(), // Evita chamadas repetidas para o mesmo valor
-        map((valor) => (valor ? valor.trim().toUpperCase() : '')), // Normaliza o texto
-      )
-      .subscribe((vinDigitado) => {
-        // Se apagar o campo de busca, volta a exibir o veículo que está selecionado no Select
-        if (!vinDigitado) {
-          this.exibirLinhaTabela = true;
-          this.carregarDadosPorModelo(this.veiculoSelecionado);
-          return;
-        }
-
-        // 🚀 Dispara o VIN digitado direto para a API para descobrir qual é o carro!
-        this.http.post('http://localhost:3001/vehicleData', { vin: vinDigitado }).subscribe({
-          next: (resposta: any) => {
-            if (resposta && resposta.id) {
-              this.exibirLinhaTabela = true;
-
-              // 1. Descobre qual modelo pertence a esse ID retornado pela API
-              const modeloIdentificado = this.modelosPorId[resposta.id] || this.veiculoSelecionado;
-
-              // 2. Atualiza o Select na tela para o carro certo automaticamente!
-              this.veiculoSelecionado = modeloIdentificado;
-
-              // 3. Preenche os dados da tabela vindos do POST
-              this.dadosVeiculo.vin = vinDigitado;
-              this.dadosVeiculo.odometro = resposta.odometro;
-              this.dadosVeiculo.combustivel = resposta.nivelCombustivel + '%';
-              this.dadosVeiculo.status = resposta.status;
-              this.dadosVeiculo.lat = resposta.lat;
-              this.dadosVeiculo.long = resposta.long;
-              this.dadosVeiculo.imagem = this.imagensPorModelo[modeloIdentificado];
-
-              // 4. Atualiza os cards superiores (vendas, conectados...) para o novo modelo identificado
-              this.atualizarCardsSuperiores(modeloIdentificado);
-            }
-          },
-          error: (err) => {
-            // Se o VIN não existir no switch da API, oculta a tabela e mostra o aviso
-            console.error('VIN não encontrado ou erro na API:', err);
-            this.exibirLinhaTabela = false;
-          },
-        });
-      });
+  // 🏎️ CORREÇÃO AQUI: Pega o VIN padrão que acabou de ser mapeado para o Mustang e joga no Input
+  if (this.dadosVeiculo?.vin) {
+    // Usamos o { emitEvent: false } para preencher apenas o visual do campo, 
+    // evitando disparar a busca do RxJS desnecessariamente no primeiro load.
+    this.buscaVinCtrl.setValue(this.dadosVeiculo.vin, { emitEvent: false });
   }
+
+  // 🎯 PROGRAMAÇÃO REATIVA COM RxJS: Busca Global por VIN Inteligente!
+  this.buscaVinCtrl.valueChanges
+    .pipe(
+      debounceTime(500), // Aguarda o usuário terminar de digitar
+      distinctUntilChanged(), // Evita chamadas repetidas para o mesmo valor
+      map((valor) => (valor ? valor.trim().toUpperCase() : '')), // Normaliza o texto
+    )
+    .subscribe((vinDigitado) => {
+      // Se apagar o campo de busca, volta a exibir o veículo que está selecionado no Select
+      if (!vinDigitado) {
+        this.exibirLinhaTabela = true;
+        this.carregarDadosPorModelo(this.veiculoSelecionado);
+        return;
+      }
+
+      // 🚀 Dispara o VIN digitado direto para a API para descobrir qual é o carro!
+      this.http.post('http://localhost:3001/vehicleData', { vin: vinDigitado }).subscribe({
+        next: (resposta: any) => {
+          if (resposta && resposta.id) {
+            this.exibirLinhaTabela = true;
+
+            // 1. Descobre qual modelo pertence a esse ID retornado pela API
+            const modeloIdentificado = this.modelosPorId[resposta.id] || this.veiculoSelecionado;
+
+            // 2. Atualiza o Select na tela para o carro certo automaticamente!
+            this.veiculoSelecionado = modeloIdentificado;
+
+            // 3. Preenche os dados da tabela vindos do POST
+            this.dadosVeiculo.vin = vinDigitado;
+            this.dadosVeiculo.odometro = resposta.odometro;
+            this.dadosVeiculo.combustivel = resposta.nivelCombustivel + '%';
+            this.dadosVeiculo.status = resposta.status;
+            this.dadosVeiculo.lat = resposta.lat;
+            this.dadosVeiculo.long = resposta.long;
+            this.dadosVeiculo.imagem = this.imagensPorModelo[modeloIdentificado];
+
+            // 4. Atualiza os cards superiores (vendas, conectados...) para o novo modelo identificado
+            this.atualizarCardsSuperiores(modeloIdentificado);
+          }
+        },
+        error: (err) => {
+          // Se o VIN não existir no switch da API, oculta a tabela e mostra o aviso
+          console.error('VIN não encontrado ou erro na API:', err);
+          this.exibirLinhaTabela = false;
+        },
+      });
+    });
+}
 
   // 👤 Abre e fecha o dropdown ao clicar no ícone do bonequinho
   toggleDropdown(event: Event) {
