@@ -3,12 +3,7 @@ import { Router } from '@angular/router';
 import { MenuService } from '../../services/menu.service';
 import { HttpClient } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  filter,
-} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,9 +31,9 @@ export class DashboardComponent implements OnInit {
   };
 
   modelosPorId: { [key: number]: string } = {
-    1: 'ranger',   
-    2: 'mustang',    
-    3: 'territory', 
+    1: 'ranger',
+    2: 'mustang',
+    3: 'territory',
     4: 'bronco',
   };
 
@@ -57,22 +52,25 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     public menuService: MenuService,
-    private http: HttpClient
+    private http: HttpClient,
   ) {}
 
   ngOnInit() {
     this.http.get('http://localhost:3001/vehicles').subscribe({
       next: (resposta: any) => {
         if (resposta && resposta.vehicles) {
-          
           resposta.vehicles.forEach((v: any) => {
-            const chave = v.vehicle.toLowerCase().includes('bronco') ? 'bronco' : v.vehicle.toLowerCase();
-            this.imagensPorModelo[chave] = v.img; 
+            const chave = v.vehicle.toLowerCase().includes('bronco')
+              ? 'bronco'
+              : v.vehicle.toLowerCase();
+            this.imagensPorModelo[chave] = v.img;
           });
 
           let listaVindaDaApi = resposta.vehicles.map((v: any) => {
             const nomeCarro = v.vehicle;
-            const valorCarro = nomeCarro.toLowerCase().includes('bronco') ? 'bronco' : nomeCarro.toLowerCase();
+            const valorCarro = nomeCarro.toLowerCase().includes('bronco')
+              ? 'bronco'
+              : nomeCarro.toLowerCase();
             return { nome: nomeCarro, valor: valorCarro };
           });
 
@@ -84,7 +82,7 @@ export class DashboardComponent implements OnInit {
           this.dadosVeiculo.imagem = this.imagensPorModelo[this.veiculoSelecionado];
         }
       },
-      error: (err) => console.error('Erro ao carregar lista de veículos para o filtro:', err)
+      error: (err) => console.error('Erro ao carregar lista de veículos para o filtro:', err),
     });
 
     this.carregarDadosPorModelo(this.veiculoSelecionado);
@@ -100,7 +98,7 @@ export class DashboardComponent implements OnInit {
         debounceTime(500),
         distinctUntilChanged(),
         map((valor) => (valor ? valor.trim().toUpperCase() : '')),
-        filter((valor) => valor.length === 0 || valor.length >= 5)
+        filter((valor) => valor.length === 0 || valor.length >= 5),
       )
       .subscribe((vinDigitado) => {
         if (!vinDigitado) {
@@ -119,19 +117,17 @@ export class DashboardComponent implements OnInit {
                 this.exibirLinhaTabela = true;
 
                 const modeloIdentificado =
-                  this.modelosPorId[resposta.id] ||
-                  this.veiculoSelecionado;
+                  this.modelosPorId[resposta.id] || this.veiculoSelecionado;
 
                 this.veiculoSelecionado = modeloIdentificado;
 
                 this.dadosVeiculo.vin = vinDigitado;
                 this.dadosVeiculo.odometro = resposta.odometro;
-                this.dadosVeiculo.combustivel =
-                  resposta.nivelCombustivel + '%';
+                this.dadosVeiculo.combustivel = resposta.nivelCombustivel + '%';
                 this.dadosVeiculo.status = resposta.status;
                 this.dadosVeiculo.lat = resposta.lat;
                 this.dadosVeiculo.long = resposta.long;
-                
+
                 this.dadosVeiculo.imagem = this.imagensPorModelo[modeloIdentificado];
 
                 this.atualizarCardsSuperiores(modeloIdentificado);
@@ -139,7 +135,26 @@ export class DashboardComponent implements OnInit {
             },
             error: (err) => {
               console.error('VIN não encontrado ou erro na API:', err);
-              this.exibirLinhaTabela = false;
+
+              this.exibirLinhaTabela = true;
+
+              // Zera os cards superiores
+              this.dadosVeiculo.vendas = 0;
+              this.dadosVeiculo.conectados = 0;
+              this.dadosVeiculo.updateSoftware = 0;
+
+              // Limpa os dados do veículo
+              this.dadosVeiculo.odometro = '';
+              this.dadosVeiculo.combustivel = '';
+              this.dadosVeiculo.status = '';
+              this.dadosVeiculo.lat = '';
+              this.dadosVeiculo.long = '';
+
+              // Remove a imagem do último veículo
+              this.dadosVeiculo.imagem = '';
+
+              // Limpa o VIN armazenado
+              this.dadosVeiculo.vin = '';
             },
           });
       });
@@ -170,7 +185,7 @@ export class DashboardComponent implements OnInit {
     const vinAlvo = this.vinsPorModelo[modelo] || '';
 
     this.dadosVeiculo.vin = vinAlvo;
-    
+
     if (this.imagensPorModelo[modelo]) {
       this.dadosVeiculo.imagem = this.imagensPorModelo[modelo];
     }
@@ -196,24 +211,22 @@ export class DashboardComponent implements OnInit {
   }
 
   atualizarCardsSuperiores(modelo: string) {
-    this.http
-      .get('http://localhost:3001/vehicles')
-      .subscribe({
-        next: (resposta: any) => {
-          if (resposta && resposta.vehicles) {
-            const dadosCard = resposta.vehicles.find((v: any) =>
-              v.vehicle.toLowerCase().includes(modelo.toLowerCase())
-            );
+    this.http.get('http://localhost:3001/vehicles').subscribe({
+      next: (resposta: any) => {
+        if (resposta && resposta.vehicles) {
+          const dadosCard = resposta.vehicles.find((v: any) =>
+            v.vehicle.toLowerCase().includes(modelo.toLowerCase()),
+          );
 
-            if (dadosCard) {
-              this.dadosVeiculo.vendas = dadosCard.volumetotal;
-              this.dadosVeiculo.conectados = dadosCard.connected;
-              this.dadosVeiculo.updateSoftware = dadosCard.softwareUpdates;
-            }
+          if (dadosCard) {
+            this.dadosVeiculo.vendas = dadosCard.volumetotal;
+            this.dadosVeiculo.conectados = dadosCard.connected;
+            this.dadosVeiculo.updateSoftware = dadosCard.softwareUpdates;
           }
-        },
-        error: (err) => console.error('Erro ao atualizar cards:', err),
-      });
+        }
+      },
+      error: (err) => console.error('Erro ao atualizar cards:', err),
+    });
   }
 
   logout() {

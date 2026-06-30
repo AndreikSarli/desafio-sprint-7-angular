@@ -238,3 +238,20 @@
   transition: none !important;
   left: 0 !important;
 }
+
+/* Animação Elástica do Card */
+.animacao-popup {
+  opacity: 0;
+  animation: efeitoSurpresa 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes efeitoSurpresa {
+  0% {
+    opacity: 0;
+    transform: scale(0.82) translateY(35px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

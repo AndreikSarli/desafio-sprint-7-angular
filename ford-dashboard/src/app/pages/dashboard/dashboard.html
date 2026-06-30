@@ -110,13 +110,25 @@
 
       <div class="area-carro-fixa d-flex align-items-center justify-content-center my-3">
         <img
+          *ngIf="dadosVeiculo.imagem"
           [src]="dadosVeiculo.imagem"
           [alt]="veiculoSelecionado"
           class="img-fluid imagem-carro-alinhada"
         />
+
+        <div *ngIf="!dadosVeiculo.imagem" class="text-center">
+          <div style="font-size: 80px">🚗</div>
+
+          <h5 class="text-danger fw-bold">Veículo não encontrado</h5>
+
+          <small class="text-muted"> Digite um VIN cadastrado. </small>
+        </div>
       </div>
 
-      <p class="texto-sup-tabela fw-bold mt-1 mb-1 text-start text-muted" style="font-size: 11px; color: #004488">
+      <p
+        class="texto-sup-tabela fw-bold mt-1 mb-1 text-start text-muted"
+        style="font-size: 11px; color: #004488"
+      >
         Dados em tempo real do veículo
       </p>
       <div
@@ -144,40 +156,37 @@
                     class="form-control border-start-0 ps-1 fw-bold"
                     [formControl]="buscaVinCtrl"
                     placeholder="Digite o VIN..."
+                    maxlength="22"
                     style="color: #1e293b"
                   />
                 </div>
               </td>
 
-              <ng-container *ngIf="exibirLinhaTabela && dadosVeiculo?.vin">
-                <td class="fw-bold" style="vertical-align: middle">
-                  {{ dadosVeiculo.odometro }} Km
-                </td>
-                <td class="fw-bold" style="vertical-align: middle">
-                  {{ dadosVeiculo.combustivel }}
-                </td>
-                <td style="vertical-align: middle">
-                  <span
-                    [class.status-on]="dadosVeiculo.status === 'on'"
-                    [class.status-off]="dadosVeiculo.status === 'off'"
-                    class="fw-bold text-uppercase"
-                  >
-                    {{ dadosVeiculo.status }}
-                  </span>
-                </td>
-                <td class="fw-bold" style="vertical-align: middle">{{ dadosVeiculo.lat }}</td>
-                <td class="fw-bold" style="vertical-align: middle">{{ dadosVeiculo.long }}</td>
-              </ng-container>
+              <td class="fw-bold" style="vertical-align: middle">
+                {{ dadosVeiculo.odometro ? dadosVeiculo.odometro + ' Km' : '-' }}
+              </td>
 
-              <ng-container *ngIf="!exibirLinhaTabela || !dadosVeiculo?.vin">
-                <td
-                  colspan="5"
-                  class="fw-bold text-danger bg-white small text-center"
-                  style="vertical-align: middle; padding: 12px 0"
+              <td class="fw-bold" style="vertical-align: middle">
+                {{ dadosVeiculo.combustivel || '-' }}
+              </td>
+
+              <td style="vertical-align: middle">
+                <span
+                  [class.status-on]="dadosVeiculo.status === 'on'"
+                  [class.status-off]="dadosVeiculo.status === 'off'"
+                  class="fw-bold text-uppercase"
                 >
-                  ⚠️ Nenhum veículo correspondente para este VIN.
-                </td>
-              </ng-container>
+                  {{ dadosVeiculo.status || '-' }}
+                </span>
+              </td>
+
+              <td class="fw-bold" style="vertical-align: middle">
+                {{ dadosVeiculo.lat || '-' }}
+              </td>
+
+              <td class="fw-bold" style="vertical-align: middle">
+                {{ dadosVeiculo.long || '-' }}
+              </td>
             </tr>
           </tbody>
           <tfoot>

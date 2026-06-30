@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core'; // 👈 Importamos o HostListener
+import { Component, OnInit, HostListener } from '@angular/core'; 
 import { Router } from '@angular/router';
 import { MenuService } from "../../services/menu.service";
 
@@ -10,9 +10,11 @@ import { MenuService } from "../../services/menu.service";
 })
 export class Home implements OnInit { 
   
-  // 👤 Variável de controle do menu suspenso do usuário na Home
   mostrarDropdown = false; 
   usuarioLogado = 'Admin';
+
+  // Nova variável para controlar a animação elástica do card principal
+  deveAnimarCard = false;
 
   constructor(
     private router: Router,
@@ -20,16 +22,21 @@ export class Home implements OnInit {
   ) {}
 
   ngOnInit() {
-    
+    // Verifica se o card já realizou o movimento nesta sessão
+    const jaAnimou = sessionStorage.getItem('home-card-animado');
+
+    if (!jaAnimou) {
+      this.deveAnimarCard = true;
+      // Define a bandeira para travar a animação nas próximas navegações
+      sessionStorage.setItem('home-card-animado', 'true');
+    }
   }
 
-  //  Abre e fecha o dropdown ao clicar no ícone do boneco
   toggleDropdown(event: Event) {
-    event.stopPropagation(); // Impede que o clique feche o menu no mesmo instante
+    event.stopPropagation(); 
     this.mostrarDropdown = !this.mostrarDropdown;
   }
 
-  // Fecha o menu automaticamente se houver clique em qualquer outro lugar da Home
   @HostListener('document:click')
   cliqueFora() {
     this.mostrarDropdown = false;
