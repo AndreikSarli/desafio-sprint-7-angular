@@ -14,7 +14,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard';
     BrowserModule, 
     AppRoutingModule, 
     FormsModule,
-    ReactiveFormsModule // 👈 Habilita o [formControl] que usamos na busca por VIN
+    ReactiveFormsModule // Habilita o [formControl] que usamos na busca por VIN
   ],
   providers: [provideHttpClient(), provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
