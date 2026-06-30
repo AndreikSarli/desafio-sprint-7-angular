@@ -1,3 +1,4 @@
+/* Container Geral - Home */
 .home-container {
   height: 100vh;
   width: 100%;
@@ -8,7 +9,7 @@
   background-color: #ffffff;
 }
 
-/* --- MENU LATERAL / SIDEBAR --- */
+/* Menu Lateral / Sidebar */
 .menu-toggle-btn {
   position: absolute;
   top: 15px;
@@ -80,7 +81,7 @@
   margin: 0 auto 20px auto;
 }
 
-/* Customização dos Links: Ajustados de Verde Claro para o Azulado Sutil */
+/* Links de Navegação */
 .nav-link {
   color: #555555 !important;
   font-weight: 700 !important;
@@ -101,9 +102,7 @@
   color: #003366 !important;
 }
 
-/* ==========================================================================
-   👤 DROPDOWN DO USUÁRIO (SUPERIOR DIREITO) - ESPELHADO DO DASHBOARD
-   ========================================================================== */
+/* Dropdown de Usuário e Logout */
 .user-dropdown-container {
   position: absolute;
   top: 15px;
@@ -170,7 +169,7 @@
   background-color: #fff5f5;
 }
 
-/* --- ÁREA DE CONTEÚDO PRINCIPAL --- */
+/* Área de Conteúdo Central */
 .content-area {
   width: 100%;
   height: 100%;
@@ -180,6 +179,7 @@
   padding: 20px;
 }
 
+/* Card de Boas-Vindas */
 .style-card {
   width: 100%;
   height: 300px;
@@ -208,25 +208,30 @@
   gap: 20px;
 }
 
-.texto-boas-vindas{
-  color: #0d6efd !important;
+.texto-boas-vindas {
+  color: #004488 !important;   
   font-weight: 700;
-  margin: 0; 
+  font-size: 1.6rem;   
+  margin-bottom: 1.5rem;   
 }
 
+/* Botão de Acesso */
 .btn-entrar {
-  background-color: #0d6efd !important;
+  background-color: #004488 !important; 
   border: none !important;
-  border-radius: 15px !important; 
-  font-weight: 500;
+  border-radius: 50px !important;   
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 10px 25px !important; 
+  font-size: 13px;   
   transition: all 0.3s ease;
-  padding: 4px 15px !important;
-  font-size: 12px;
+  display: inline-block;
 }
 
 .btn-entrar:hover {
-  background-color: #0b5ed7 !important;
+  background-color: #002d5a !important; 
   transform: translateY(-2px); 
+  box-shadow: 0 4px 12px rgba(0, 68, 136, 0.3); 
 }
 
 .no-transition {

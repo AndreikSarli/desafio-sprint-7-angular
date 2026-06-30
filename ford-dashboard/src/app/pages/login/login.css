@@ -1,12 +1,8 @@
-/* ==========================================================================
-   🔵 ⚪ DESIGN CORRIGIDO: ESPAÇAMENTO REAL E ALINHAMENTO DO SWITCH
-   ========================================================================== */
-
 :root {
-  --neon-ford-blue: #0088ff; /* O azul neon pro contorno ao focar */
+  --neon-ford-blue: #0088ff;
 }
 
-/* Fundo limpo e branco */
+/* Fundo Geral - Login */
 .login-wrapper {
   display: flex;
   justify-content: center;
@@ -22,43 +18,37 @@
   background-color: #ffffff;
 }
 
+/* Divisões de Tela (Split Screen) */
 .login-left-split {
   background: transparent !important;
-  border-right: 1px solid #f0f0f0 !important; /* Divisão imperceptível e limpa */
+  border-right: 1px solid #f0f0f0 !important; 
 }
 
 .login-right-split {
   background: transparent !important;
   position: relative !important;
-  z-index: 2 !important; /* Faz o lado direito ficar "por cima" do esquerdo */
+  z-index: 2 !important; 
   background: linear-gradient(135deg, #5b658f33 0%, #f8fafc11 50%, #d3d3e049 100%) !important;
 }
 
-/* 🛠️ PASSO 2: Criamos a sombra em formato de vetor físico travado */
 .login-right-split::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0; /* Fixa exatamente na linha divisória do meio */
+  left: 0; 
   height: 100%;
-
-  /* 📐 TRAVA A LARGURA: A sombra terá sempre 15px de largura, não importa o zoom */
   width: 15px;
-
-  /* Cria um degradê perfeito que imita uma sombra suave indo da esquerda para a direita */
   background: linear-gradient(
     to right,
     rgba(0, 0, 0, 0.04) 0%,
     rgba(0, 0, 0, 0.03) 10%,
     rgba(0, 0, 0, 0) 60%
   );
-
-  /* Garante que ela fique atrás dos inputs, mas colada em cima do split branco */
   z-index: -1;
-  pointer-events: none; /* Evita que ela interfira nos cliques da tela */
+  pointer-events: none; 
 }
 
-/* 🚗 Ranger ampliada para destaque */
+/* Imagem de Destaque */
 .ranger-highlight-img {
   max-width: 100%;
   opacity: 0.6;
@@ -66,44 +56,38 @@
   object-fit: contain;
 }
 
-/* 📐 Caixa interna do login: Mantém o visual esticado em telas grandes e respira em telas menores */
+/* Caixa do Formulário Interno */
 .login-content-box {
-  width: 95%; /* Mantém os seus 75% para esticar bem nas laterais */
-  max-width: 820px; /* Mantém o seu limite original bem largo */
-
-  /* 🛠️ MUDANÇA ESSENCIAL AQUI: */
-  height: auto; /* Remove o '90vh' fixo para a caixa encolher organicamente em telas menores */
-  max-height: 95vh; /* Impede que ela passe do tamanho total da tela */
-
+  width: 95%; 
+  max-width: 820px; 
+  height: auto; 
+  max-height: 95vh; 
   padding: 1.5rem 1rem;
-  margin: 0 auto !important; /* Centraliza o bloco esticado no meio da área cinza */
+  margin: 0 auto !important; 
   padding-bottom: 15vh;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* 🟦 Logo da Ford responsiva e segura */
+/* Logo da Ford */
 .login-logo {
   width: 100%;
   max-width: 230px;
   height: auto;
   object-fit: contain;
-
-  /* 🛠️ ALTERAÇÃO DE MARGEM: Mudamos de 'vh' para 'rem' para dar uma distância fixa e estável */
   margin: 0 auto clamp(1.5rem, 6vh, 5rem) auto !important;
 }
 
-/* 📝 Título "Boas-vindas" */
+/* Títulos */
 .login-title-dark {
   color: #1e293b !important;
   font-weight: 500;
   font-size: 1.5rem;
-  margin-bottom: 1.5rem !important; /* Distância estável para não empurrar os inputs para fora */
+  margin-bottom: 1.5rem !important; 
 }
 
-/* Caixa dos inputs com a borda contínua fina e escura */
+/* Campos de Entrada (Inputs) */
 .input-container-group {
   display: flex;
   align-items: center;
@@ -111,9 +95,7 @@
   border: 1.5px solid #1e293b !important;
   border-radius: 6px !important;
   padding: 5px 14px;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-icon-label {
@@ -133,30 +115,67 @@
   font-weight: 600 !important;
 }
 
-/* 💙 Efeito neon ativado puramente no clique do input */
-.input-container-group:focus-within {
-  border-color: var(--neon-ford-blue) !important;
-  box-shadow:
-    0 0 5px var(--neon-ford-blue),
-    0 0 12px rgba(0, 136, 255, 0.25) !important;
+/* Ícone de Dica (Tooltip) */
+.info-tooltip {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  color: #083c8f !important; 
+  cursor: help;
+  margin-left: 12px;
+  position: relative;
 }
 
-/* 🛠️ RESET DO CONTAINER DO SWITCH (Garante linha única e centralização) */
+.info-tooltip svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+/* Balão Explicativo Hover */
+.info-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 130%;
+  right: 0;
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 6px 10px;
+  font-size: 11px;
+  white-space: nowrap;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateY(4px);
+  z-index: 999;
+}
+
+.info-tooltip:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Botão de Auto-Login (Switch) */
 .auto-login-container {
   margin-top: 18px;
   width: 100%;
   display: flex !important;
   justify-content: flex-start !important;
   align-items: center !important;
-  gap: 1px; /* Distância exata entre o texto e o botão */
+  gap: 1px; 
 }
 
-/* Evita qualquer tipo de quebra ou corte por falta de espaço */
 .auto-login-text {
   font-size: 0.9rem;
   color: #333333 !important;
   font-weight: 500;
-  white-space: nowrap !important; /* Impede o texto de pular linha */
+  white-space: nowrap !important; 
   display: inline-block;
 }
 
@@ -165,12 +184,11 @@
   align-items: center;
 }
 
-/* Estilo do botão Switch personalizado, ignorando o Bootstrap padrão */
 .custom-switch-input {
   cursor: pointer;
   width: 2.4em !important;
   height: 1.2em !important;
-  margin-top: 0 !important; /* Remove desalinhamento vertical padrão do bootstrap */
+  margin-top: 0 !important; 
   position: relative;
   appearance: none !important;
   -webkit-appearance: none !important;
@@ -179,9 +197,7 @@
   background-image: none !important;
   border: 2px solid #083c8f !important;
   border-radius: 999px !important;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
   box-shadow: none !important;
   outline: none !important;
   margin-left: 0px;
@@ -198,10 +214,7 @@
   transform: translateY(-50%);
   background-color: #083c8f !important;
   border-radius: 50%;
-  transition:
-    left 0.2s ease,
-    background-color 0.2s ease,
-    transform 0.2s ease;
+  transition: left 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
 .custom-switch-input:checked {
@@ -220,7 +233,7 @@
   outline: none !important;
 }
 
-/* 🔘 Botão Entrar Azul Ford */
+/* Botão de Envio (Submit) */
 .btn-login-submit {
   background-color: #083c8f !important;
   border: none !important;
@@ -230,9 +243,7 @@
   border-radius: 6px !important;
   font-size: 1rem;
   cursor: pointer;
-  transition:
-    background-color 0.15s ease,
-    box-shadow 0.15s ease;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
   margin-top: 12px;
 }
 
@@ -242,14 +253,14 @@
 }
 
 .btn-login-submit:disabled {
-  background-color: #94a3b8 !important; /* Cor cinza de botão inativo */
+  background-color: #94a3b8 !important; 
   color: #cbd5e1 !important;
-  cursor: not-allowed; /* Altera o cursor do mouse para o sinal de bloqueado */
+  cursor: not-allowed; 
   box-shadow: none !important;
   opacity: 0.7;
 }
 
-/* 🔴 Mensagem de erro */
+/* Mensagem de Erro */
 .login-error-message {
   color: #d32f2f;
   font-size: 0.85rem;

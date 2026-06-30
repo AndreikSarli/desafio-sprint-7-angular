@@ -1,13 +1,217 @@
-/* Container Geral - Ocupa a tela inteira de forma estática */
+/* Container Geral - Dashboard */
 .dashboard-container {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   position: relative;
-  overflow: hidden;
   background-color: #ffffff;
 }
 
-/* --- MENU LATERAL / SIDEBAR --- */
+/* Regras para Desktop e Notebooks */
+@media (min-width: 768px) {
+  .dashboard-container {
+    height: 100vh !important;
+    overflow: hidden !important;
+  }
+
+  .painel-conteudo-fluxo {
+    height: 100vh !important;
+    padding: 65px 25px 15px 25px !important;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container-interno-dashboard {
+    flex: 1 !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .topo-dashboard {
+    flex-shrink: 0;
+  }
+
+  .area-carro-fixa {
+    flex: 1 !important;
+    height: auto !important;
+    min-height: 120px !important;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0 !important;
+  }
+
+  .imagem-carro-alinhada {
+    width: auto !important;
+    height: 90% !important;
+    max-width: 100% !important;
+    max-height: 250px !important;
+    object-fit: contain !important;
+  }
+
+  .rodape-tabela-magnetico {
+    flex-shrink: 0;
+  }
+}
+
+/* Regras para Mobile e Tablets */
+@media (max-width: 767.98px) {
+  .painel-conteudo-fluxo {
+    padding: 80px 15px 30px 15px !important;
+    height: auto !important;
+  }
+
+  .container-interno-dashboard {
+    display: block !important;
+    height: auto !important;
+  }
+
+  .area-carro-fixa {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    margin: 25px 0 !important;
+    text-align: center;
+  }
+
+  .imagem-carro-alinhada {
+    width: 100% !important;
+    max-width: 280px !important;
+    height: auto !important;
+  }
+
+  .rodape-tabela-magnetico {
+    margin-top: 20px !important;
+  }
+}
+
+/* Compactação para telas pequenas ou zoom */
+@media (min-width: 768px) and (max-height: 850px) {
+  .painel-conteudo-fluxo {
+    padding: 50px 20px 10px 20px !important;
+  }
+
+  .dashboard-container h2 {
+    font-size: 1.35rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+  
+  .dashboard-container .mb-4 {
+    margin-bottom: 0.4rem !important;
+  }
+
+  .dashboard-container .card {
+    min-height: 75px !important;
+  }
+
+  .dashboard-container .card-header {
+    padding: 4px 15px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .dashboard-container .card-body {
+    padding: 8px 15px !important;
+  }
+
+  .dashboard-container .card-body h3 {
+    font-size: 1.3rem !important;
+  }
+  
+  .tabela-ford-sanduiche thead th {
+    padding: 8px 6px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .tabela-ford-sanduiche tbody td {
+    padding: 8px 6px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .busca-vin-group .form-control {
+    padding: 4px 4px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .tabela-rodape-azul {
+    height: 8px !important;
+  }
+
+  .imagem-carro-alinhada {
+    max-height: 230px !important; 
+  }
+}
+
+/* Cards de KPI */
+.dashboard-container .card-body {
+  padding: 20px 22px !important; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dashboard-container .card {
+  min-height: 105px !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-container .card-header {
+  padding-left: 22px !important;
+  padding-right: 22px !important;
+  background-color: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.5px;
+}
+
+/* Campo de busca do VIN */
+.busca-vin-group {
+  display: flex !important;
+  align-items: center !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  padding: 0 8px !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.busca-vin-group .input-group-text {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 4px 0 0 !important;
+  color: #64748b !important;
+}
+
+.busca-vin-group .form-control {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 6px 4px !important;
+  color: #1e293b !important;
+  font-weight: 600 !important;
+}
+
+.busca-vin-group .form-control:focus,
+.busca-vin-group .form-control:active,
+.busca-vin-group .form-control:valid {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.busca-vin-group:focus-within {
+  border-color: #004488 !important; 
+  box-shadow: 0 0 0 3px rgba(0, 68, 136, 0.15) !important;
+}
+
+/* Menu Lateral / Sidebar */
 .menu-toggle-btn {
   position: absolute;
   top: 15px;
@@ -79,7 +283,6 @@
   margin: 0 auto 20px auto;
 }
 
-/* Customização dos Links: Ajustados de Verde Claro para o Azulado Sutil */
 .nav-link {
   color: #555555 !important;
   font-weight: 700 !important;
@@ -87,9 +290,7 @@
   border-radius: 5px;
   text-decoration: none;
   margin-bottom: 5px;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .nav-link.active {
@@ -102,7 +303,7 @@
   color: #003366 !important;
 }
 
-/* --- ÁREA DE CONTEÚDO DO DASHBOARD --- */
+/* Área de Conteúdo Base */
 .content-area {
   width: 100%;
   height: 100%;
@@ -116,50 +317,44 @@
   margin-right: 0 !important;
 }
 
-/* ==========================================================================
-   👤 DROPDOWN DO USUÁRIO (IGUAL AO DA HOME)
-   ========================================================================== */
+/* Dropdown de Usuário e Logout */
 .user-dropdown-container {
-  position: fixed !important; /* Mantém fixo para não sumir atrás do Bootstrap */
+  position: fixed !important;
   top: 15px !important;
   right: 25px !important;
   z-index: 10000 !important;
 }
 
 .user-btn {
-  background: transparent !important; /* 👈 Remove o fundo azul sólido */
+  background: transparent !important;
   border: none !important;
-  color: #004488 !important; /* 👈 O ícone do bonequinho fica azul direto */
+  color: #004488 !important;
   cursor: pointer;
-  padding: 5px !important; /* 👈 Ajusta o espaçamento igual ao da Home */
+  padding: 5px !important;
   display: flex !important;
   align-items: center;
   justify-content: center;
-  width: auto !important; /* 👈 Remove o tamanho fixo de bolinha */
-  height: auto !important; /* 👈 Remove o tamanho fixo de bolinha */
-  box-shadow: none !important; /* 👈 Remove a sombra para ficar idêntico */
-  transition:
-    transform 0.2s ease,
-    color 0.2s ease;
+  width: auto !important;
+  height: auto !important;
+  box-shadow: none !important;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .user-btn:hover {
-  color: #002d5e !important; /* Efeito de hover original */
+  color: #002d5e !important;
   transform: scale(1.08);
   background: transparent !important;
 }
 
-/* Garante que o SVG interno puxe o tamanho correto */
 .user-btn svg {
   width: 26px !important;
   height: 26px !important;
   display: block !important;
 }
 
-/* --- O restante do menu (dropdown-menu-ford, etc.) pode continuar igual --- */
 .dropdown-menu-ford {
   position: absolute !important;
-  top: 45px !important; /* Ajustado para colar certinho no ícone transparente */
+  top: 45px !important;
   right: 0 !important;
   background-color: #ffffff !important;
   border: 1px solid #dee2e6 !important;
@@ -201,9 +396,7 @@
   background-color: #fff5f5 !important;
 }
 
-/* ==========================================================================
-   🚗 SELECT DE VEÍCULOS NEGRITO PADRÃO FORD
-   ========================================================================== */
+/* Select de Veículos */
 .select-ford-negrito {
   font-weight: 700 !important;
   color: #004488 !important;
@@ -225,17 +418,30 @@
   outline: none !important;
 }
 
-.text-muted{
+.text-muted {
   color: #004488 !important;
 }
-/* ==========================================================================
-   🔵 ⚪ 🔵 TABELA FORD DESIGN: TOPO AZUL / MEIO BRANCO / BAIXO AZUL
-   ========================================================================== */
+
+/* Tabela de Dados  */
 .tabela-ford-sanduiche {
   border-collapse: collapse !important;
   border: 1px solid #dee2e6 !important;
   background-color: #ffffff !important;
   table-layout: fixed !important;
+}
+
+@media (max-width: 767.98px) {
+  .tabela-ford-sanduiche {
+    table-layout: auto !important;
+    min-width: 600px !important;
+  }
+
+  .table-responsive {
+    overflow-x: auto !important;
+    display: block !important;
+    width: 100% !important;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 .tabela-ford-sanduiche thead tr {
@@ -257,10 +463,6 @@
   padding: 12px 10px !important;
   border: 1px solid #dee2e6 !important;
   vertical-align: middle !important;
-}
-
-.tabela-ford-sanduiche tbody tr td {
-  color: #000000 !important;
 }
 
 .tabela-ford-sanduiche tbody td .status-on {
@@ -294,25 +496,6 @@
   font-family: monospace !important;
   letter-spacing: 0.5px;
   white-space: nowrap;
-}
-
-/* Estilo para o input de busca VIN dentro da tabela */
-.tabela-ford-sanduiche tbody td input.form-control {
-  background-color: #f8f9fa !important;
-  border: 1px solid #004488 !important;
-  color: #000000 !important;
-  font-weight: 600 !important;
-  font-family: monospace !important;
-  letter-spacing: 0.5px !important;
-  padding: 8px 10px !important;
-  text-transform: uppercase;
-}
-
-.tabela-ford-sanduiche tbody td input.form-control:focus {
-  background-color: #ffffff !important;
-  border-color: #0d6efd !important;
-  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
-  outline: none !important;
 }
 
 .no-transition {

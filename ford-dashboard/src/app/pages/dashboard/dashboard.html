@@ -43,8 +43,8 @@
     </div>
   </div>
 
-  <div class="content-area px-4 w-100" style="height: calc(100vh - 20px)">
-    <div class="w-100 h-100 d-flex flex-column justify-content-between px-0">
+  <div class="content-area px-4 w-100 painel-conteudo-fluxo">
+    <div class="w-100 d-flex flex-column px-0 container-interno-dashboard">
       <div>
         <h2 class="text-center fw-bold mb-4" style="color: #004488">Dashboard FORD</h2>
 
@@ -60,10 +60,9 @@
                   [(ngModel)]="veiculoSelecionado"
                   (change)="onChangeVeiculo()"
                 >
-                  <option value="mustang">Mustang</option>
-                  <option value="ranger">Ranger</option>
-                  <option value="territory">Territory</option>
-                  <option value="bronco">Bronco Sport</option>
+                  <option *ngFor="let veiculo of veiculos" [value]="veiculo.valor">
+                    {{ veiculo.nome }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -109,19 +108,20 @@
         </div>
       </div>
 
-      <div
-        class="text-center d-flex align-items-center justify-content-center flex-grow-1 my-3"
-        style="min-height: 250px"
-      >
+      <div class="area-carro-fixa d-flex align-items-center justify-content-center my-3">
         <img
           [src]="dadosVeiculo.imagem"
           [alt]="veiculoSelecionado"
-          class="img-fluid"
-          style="width: 100%; max-width: 750px; height: auto; max-height: 48vh; object-fit: contain"
+          class="img-fluid imagem-carro-alinhada"
         />
       </div>
 
-      <div class="table-responsive mb-3 w-100 table-container-ford shadow-sm rounded">
+      <p class="texto-sup-tabela fw-bold mt-1 mb-1 text-start text-muted" style="font-size: 11px; color: #004488">
+        Dados em tempo real do veículo
+      </p>
+      <div
+        class="table-responsive mb-3 w-100 table-container-ford shadow-sm rounded rodape-tabela-magnetico"
+      >
         <table class="table text-center mb-0 small w-100 tabela-ford-sanduiche">
           <thead>
             <tr>
@@ -135,13 +135,18 @@
           </thead>
           <tbody>
             <tr>
-              <td class="text-start px-3" style="min-width: 200px; vertical-align: middle">
-                <input
-                  type="text"
-                  class="form-control form-control-sm"
-                  [formControl]="buscaVinCtrl"
-                  placeholder="Digite o VIN..."
-                />
+              <td class="px-3" style="min-width: 200px; vertical-align: middle">
+                <div class="input-group input-group-sm busca-vin-group">
+                  <span class="input-group-text bg-white border-end-0 text-muted pr-0">🔍</span>
+
+                  <input
+                    type="text"
+                    class="form-control border-start-0 ps-1 fw-bold"
+                    [formControl]="buscaVinCtrl"
+                    placeholder="Digite o VIN..."
+                    style="color: #1e293b"
+                  />
+                </div>
               </td>
 
               <ng-container *ngIf="exibirLinhaTabela && dadosVeiculo?.vin">

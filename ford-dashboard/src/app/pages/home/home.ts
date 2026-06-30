@@ -12,6 +12,7 @@ export class Home implements OnInit {
   
   // 👤 Variável de controle do menu suspenso do usuário na Home
   mostrarDropdown = false; 
+  usuarioLogado = 'Admin';
 
   constructor(
     private router: Router,
@@ -19,16 +20,16 @@ export class Home implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Sua lógica do ngOnInit (vazia por enquanto)
+    
   }
 
-  // 👤 Abre e fecha o dropdown ao clicar no ícone do bonequinho
+  //  Abre e fecha o dropdown ao clicar no ícone do boneco
   toggleDropdown(event: Event) {
     event.stopPropagation(); // Impede que o clique feche o menu no mesmo instante
     this.mostrarDropdown = !this.mostrarDropdown;
   }
 
-  // 👤 Fecha o menu automaticamente se houver clique em qualquer outro lugar da Home
+  // Fecha o menu automaticamente se houver clique em qualquer outro lugar da Home
   @HostListener('document:click')
   cliqueFora() {
     this.mostrarDropdown = false;

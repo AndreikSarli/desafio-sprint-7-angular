@@ -32,7 +32,7 @@ export class Login implements OnInit {
         this.nome = nome;
         this.senha = senha;
         this.lembrarLogin = true;
-        // Faz login automático
+        // login automático
         this.entrar();
       } catch (e) {
         console.error('Erro ao recuperar credenciais:', e);
@@ -41,14 +41,14 @@ export class Login implements OnInit {
     }
   }
 
-  /* 🔐 NOVA FUNÇÃO DE VALIDAÇÃO: 
-     Retorna 'true' apenas se ambos os campos tiverem texto digitado (removendo espaços em branco) */
+  /* FUNÇÃO DE VALIDAÇÃO: 
+     Retorna 'true' apenas se ambos os campos tiverem texto digitado */
   formularioValido(): boolean {
     return !!this.nome?.trim() && !!this.senha?.trim();
   }
 
   entrar() {
-    // Mantemos essa validação por segurança extra no método
+    
     if (!this.formularioValido()) {
       this.erroMensagem = 'Por favor, preencha todos os campos.';
       return;

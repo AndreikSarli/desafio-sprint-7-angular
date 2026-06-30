@@ -1,13 +1,16 @@
 <div class="login-wrapper">
   <div class="container-fluid h-100 p-0">
     <div class="row g-0 h-100 align-items-center">
-      <div class="col-md-6 d-none d-md-flex justify-content-center align-items-center h-100 login-left-split">
+      <div
+        class="col-md-6 d-none d-md-flex justify-content-center align-items-center h-100 login-left-split"
+      >
         <img src="/ranger.png" alt="Ford Ranger" class="ranger-highlight-img" />
       </div>
 
-      <div class="col-md-6 d-flex justify-content-center align-items-center h-100 login-right-split">
+      <div
+        class="col-md-6 d-flex justify-content-center align-items-center h-100 login-right-split"
+      >
         <form class="login-content-box" (ngSubmit)="entrar()">
-          
           <div class="mb-3 text-center">
             <img src="/ford.png" alt="Ford Logo" class="login-logo" />
           </div>
@@ -15,57 +18,114 @@
           <h3 class="login-title-dark mb-4 text-center">Boas-vindas</h3>
 
           <div class="mb-3">
-            <div class="input-container-group">
-              <span class="input-icon-label">👤</span>
-              <input
-                type="text"
-                name="username"
-                class="form-control login-custom-input"
-                placeholder="Insira seu e-mail"
-                [(ngModel)]="nome"
-              />
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <div class="input-container-group flex-grow-1">
+                <span class="input-icon-label">👤</span>
+                <input
+                  type="text"
+                  name="username"
+                  class="form-control login-custom-input"
+                  placeholder="Insira seu e-mail"
+                  [(ngModel)]="nome"
+                />
+              </div>
+              <span
+                class="info-tooltip"
+                data-tooltip="Use seu e-mail corporativo cadastrado ou ID global."
+              >
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
 
           <div class="mb-3">
-            <div class="input-container-group">
-              <span class="input-icon-label">🔒</span>
-              <input
-                type="password"
-                name="password"
-                class="form-control login-custom-input"
-                placeholder="Insira sua senha"
-                [(ngModel)]="senha"
-              />
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <div class="input-container-group flex-grow-1">
+                <span class="input-icon-label">🔒</span>
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control login-custom-input"
+                  placeholder="Insira sua senha"
+                  [(ngModel)]="senha"
+                />
+              </div>
+              <span
+                class="info-tooltip tooltip-senha"
+                data-tooltip="A senha deve conter somente números."
+              >
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
 
-          <div class="d-flex justify-content-start align-items-center mb-4 auto-login-container">
-            <div class="form-check form-switch p-0 m-0 custom-switch-wrapper">
-              <input
-                class="form-check-input custom-switch-input"
-                type="checkbox"
-                name="lembrarLogin"
-                role="switch"
-                style="margin-right: 10px"
-                [(ngModel)]="lembrarLogin"
-              />
+          <div
+            class="d-flex justify-content-between align-items-center mb-4 auto-login-container w-100"
+          >
+            <div class="d-flex align-items-center">
+              <div class="form-check form-switch p-0 m-0 custom-switch-wrapper">
+                <input
+                  class="form-check-input custom-switch-input"
+                  type="checkbox"
+                  name="lembrarLogin"
+                  role="switch"
+                  style="margin-right: 10px"
+                  [(ngModel)]="lembrarLogin"
+                />
+              </div>
+              <span class="auto-login-text">Logar automaticamente</span>
             </div>
-            <span class="auto-login-text">Logar automaticamente</span>
+            <span
+              class="info-tooltip tooltip-btn"
+              data-tooltip="Recomendado apenas para computadores de uso pessoal."
+            >
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
           </div>
 
           <div *ngIf="erroMensagem" class="login-error-message mb-3">
             {{ erroMensagem }}
           </div>
 
-          <button 
-            type="submit" 
-            class="btn btn-login-submit w-100" 
-            [disabled]="!formularioValido()"
-          >
-            Entrar
-          </button>
-        </form>
+          <div class="d-flex align-items-center justify-content-between w-100 mt-3">
+            <button
+              type="submit"
+              class="btn btn-login-submit flex-grow-1 m-0"
+              [disabled]="!formularioValido()"
+            >
+              Entrar
+            </button>
 
+            <span
+              style="width: 18px; min-width: 18px; margin-left: 12px; display: inline-block"
+            ></span>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
+</div>
