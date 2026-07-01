@@ -73,7 +73,7 @@ export class Login implements OnInit {
       },
       error: (err) => {
         console.log('Erro recebido:', err);
-        this.erroMensagem = err.error?.message || 'Erro ao fazer login';
+        this.erroMensagem = err.error?.message || 'Servidor indisponível. Tente mais tarde.';
       },
     });
   }
