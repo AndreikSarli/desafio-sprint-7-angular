@@ -20,10 +20,10 @@ export class Login implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Verifica se há credenciais salvas e faz auto-login
     this.verificarAutoLogin();
   }
 
+  /* --- FLUXO DE AUTO-LOGIN --- */
   verificarAutoLogin() {
     const credenciaisArmazenadas = localStorage.getItem('ford-login-auto');
     if (credenciaisArmazenadas) {
@@ -32,7 +32,6 @@ export class Login implements OnInit {
         this.nome = nome;
         this.senha = senha;
         this.lembrarLogin = true;
-        // login automático
         this.entrar();
       } catch (e) {
         console.error('Erro ao recuperar credenciais:', e);
@@ -41,14 +40,13 @@ export class Login implements OnInit {
     }
   }
 
-  /* FUNÇÃO DE VALIDAÇÃO: 
-     Retorna 'true' apenas se ambos os campos tiverem texto digitado */
+  /* --- VALIDAÇÃO DE FORMULÁRIO --- */
   formularioValido(): boolean {
     return !!this.nome?.trim() && !!this.senha?.trim();
   }
 
+  /* --- AUTENTICAÇÃO --- */
   entrar() {
-    
     if (!this.formularioValido()) {
       this.erroMensagem = 'Por favor, preencha todos os campos.';
       return;
@@ -58,14 +56,14 @@ export class Login implements OnInit {
       next: (usuarioValido) => {
         this.erroMensagem = '';
 
-        // Se o checkbox está marcado, salva as credenciais no localStorage
+        sessionStorage.setItem('usuarioLogado', 'true');
+
         if (this.lembrarLogin) {
           localStorage.setItem(
             'ford-login-auto',
             JSON.stringify({ nome: this.nome, senha: this.senha }),
           );
         } else {
-          // Se o checkbox não está marcado, remove as credenciais salvas
           localStorage.removeItem('ford-login-auto');
         }
 

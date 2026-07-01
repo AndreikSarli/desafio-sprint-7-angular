@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // 👈 Adicionado o ReactiveFormsModule aqui
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Adicionado o ReactiveFormsModule aqui
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
@@ -14,7 +14,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard';
     BrowserModule, 
     AppRoutingModule, 
     FormsModule,
-    ReactiveFormsModule // Habilita o [formControl] que usamos na busca por VIN
+    ReactiveFormsModule // Habilita o [formControl] busca por VIN
   ],
   providers: [provideHttpClient(), provideBrowserGlobalErrorListeners()],
   bootstrap: [App],

@@ -42,7 +42,10 @@ export class Home implements OnInit {
     this.mostrarDropdown = false;
   }
 
-  logout() {
+  logout(event?: Event) {
+    if (event) {
+      event.stopPropagation(); // Evita que o clique feche o dropdown antes da hora
+    }
     localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['/']);
