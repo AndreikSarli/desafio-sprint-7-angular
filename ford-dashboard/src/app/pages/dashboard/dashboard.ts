@@ -229,8 +229,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  logout() {
-    localStorage.removeItem('ford-login-auto');
+  logout(event?: Event) {
+    if (event) {
+      event.stopPropagation(); // Evita que o clique feche o dropdown antes da hora
+    }
+    localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['/']);
   }
